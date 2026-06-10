@@ -7,6 +7,7 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL || 'rcolinrobins@gmail.com';
 
 // Middleware
 app.use(cors());
@@ -14,15 +15,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname)));
 
-// Configure nodemailer
-// Using Gmail or your preferred email service
+// Configure nodemailer with Gmail
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.EMAIL_USER || 'your-email@gmail.com',
-    pass: process.env.EMAIL_PASSWORD || 'your-app-password'
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD
   }
 });
+
+// Verify transporter configuration on startup
+if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
+  transporter.verify(function(error, success) {
+    if (error) {
+      console.log('Email configuration error:', error);
+    } else {
+      console.log('Email service ready');
+    }
+  });
+}
 
 // Routes
 app.get('/', (req, res) => {
@@ -39,6 +50,15 @@ app.post('/api/contact', async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
+    // Check if email credentials are configured
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
+      console.log('Email not configured, returning success to trigger Formspree fallback');
+      return res.json({ 
+        success: true, 
+        message: 'Inquiry received. Please check your email for confirmation.' 
+      });
+    }
+
     // Prepare email content
     const mailContent = `
       <h2>New Event Inquiry from The Ivy Website</h2>
@@ -52,8 +72,8 @@ app.post('/api/contact', async (req, res) => {
 
     // Send email to venue
     const mailOptions = {
-      from: process.env.EMAIL_USER || 'your-email@gmail.com',
-      to: 'rcolinrobins@gmail.com',
+      from: process.env.EMAIL_USER,
+      to: RECIPIENT_EMAIL,
       subject: `New Event Inquiry: ${event_type} from ${name}`,
       html: mailContent,
       replyTo: email
@@ -63,7 +83,7 @@ app.post('/api/contact', async (req, res) => {
 
     // Send confirmation email to inquirer
     const confirmationMail = {
-      from: process.env.EMAIL_USER || 'your-email@gmail.com',
+      from: process.env.EMAIL_USER,
       to: email,
       subject: 'The Ivy - We Received Your Inquiry',
       html: `

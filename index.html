@@ -243,12 +243,11 @@
 
     /* ——— CTA Section ——— */
     .cta-section {
-      padding: 60px 0;
+      padding: 60px 0 0 0;
       text-align: center;
       background: linear-gradient(135deg, var(--ivy) 0%, var(--forest) 100%);
       color: var(--paper);
-      margin: 40px 0;
-      border-radius: 4px;
+      margin: 40px 0 0 0;
     }
 
     .cta-section h2 {
@@ -373,6 +372,21 @@
       color: var(--ink);
       border-radius: 2px;
       transition: border-color 0.2s;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    input[type="date"] {
+      font-size: 16px;
+      padding: 12px 14px;
+      cursor: pointer;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
     }
 
     input:focus,
@@ -386,6 +400,7 @@
     textarea {
       resize: vertical;
       min-height: 100px;
+      padding: 12px 14px;
     }
 
     .submit-button {
@@ -442,7 +457,7 @@
     footer {
       background: var(--forest);
       color: #c8cfc2;
-      padding: 40px 20px;
+      padding: 40px 20px 40px 20px;
       text-align: center;
       font-size: 13px;
     }
@@ -470,20 +485,7 @@
     <div class="hero-deco two"></div>
     <div class="hero-content">
       <div class="hero-logo">
-        <svg viewBox="0 0 690 480" role="img" xmlns="http://www.w3.org/2000/svg" style="width: 100%;">
-          <title>The Ivy</title>
-          <rect x="0" y="0" width="680" height="470" fill="#ddbc7e" />
-          <line x1="120" y1="358" x2="560" y2="358" stroke="#fbf9f3" stroke-width="2" />
-          <g fill="none" stroke="#fbf9f3" stroke-width="2" stroke-linejoin="round">
-            <path d="M135,150 C150,205 158,278 150,330 C146,346 142,352 135,354 C128,352 124,346 120,330 C112,278 120,205 135,150 Z" />
-            <line x1="135" y1="166" x2="135" y2="346" stroke-width="1.5" opacity="0.7" />
-            <line x1="135" y1="354" x2="135" y2="358" />
-            <path d="M545,150 C560,205 568,278 560,330 C556,346 552,352 545,354 C538,352 534,346 530,330 C522,278 530,205 545,150 Z" />
-            <line x1="545" y1="166" x2="545" y2="346" stroke-width="1.5" opacity="0.7" />
-            <line x1="545" y1="354" x2="545" y2="358" />
-          </g>
-          <path d="M340,130 L430,250 L408,250 L340,152 L272,250 L250,250 Z" fill="#fbf9f3" stroke="#fbf9f3" stroke-width="2" stroke-linejoin="round" />
-        </svg>
+        <img src="images/logo.png" alt="The Ivy" style="width: 100%; max-width: 350px;">
       </div>
       <h1>The Ivy</h1>
       <p class="lede">Luxury Venue for Weddings, Events & Celebrations</p>
@@ -492,7 +494,6 @@
 
   <!-- Services Section -->
   <section class="wrap">
-    <div class="kicker">Services</div>
     <h2 class="section-title">What We Offer</h2>
     <div class="services-grid">
       <div class="service-card">
@@ -525,7 +526,7 @@
   <!-- CTA Section -->
   <section class="wrap" style="padding: 0;">
     <div class="cta-section">
-      <h2>Begin Your Event</h2>
+      <h2>Start Your Story</h2>
       <p>Let us help you create an unforgettable experience at The Ivy</p>
       <button class="cta-button" onclick="openForm()">Inquire Now</button>
     </div>
@@ -625,43 +626,20 @@
       submitButton.textContent = 'Sending...';
 
       try {
-        // Try local server first, fallback to Formspree
-        let endpoint = '/api/contact';
-        
-        // Check if we're running on a server with backend
-        // If not, use Formspree (update with your form ID)
-        let response;
-        try {
-          response = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              name: name,
-              email: email,
-              event_type: event,
-              preferred_date: date || 'Not specified',
-              message: message
-            })
-          });
-        } catch (localError) {
-          // Fallback to Formspree if local server is not available
-          console.log('Local server not available, using Formspree...');
-          response = await fetch('https://formspree.io/f/xyzqpwpk', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              name: name,
-              email: email,
-              event_type: event,
-              preferred_date: date || 'Not specified',
-              message: message
-            })
-          });
-        }
+        // Using Formspree for reliable email handling to rcolinrobins@gmail.com
+        const response = await fetch('https://formspree.io/f/xyzqpwpk', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            event_type: event,
+            preferred_date: date || 'Not specified',
+            message: message
+          })
+        });
 
         if (response.ok) {
           formMessage.classList.add('success');
