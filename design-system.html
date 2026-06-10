@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Ivy — Visual Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ——— Greens ——— */
+    --ivy:#16402c;          /* primary brand green */
+    --forest:#0c2419;       /* deepest green / dark mode ground */
+    --verdigris:#3c7355;    /* bolder mid-green — links, hover, accents */
+    /* ——— Metal ——— */
+    --gilt:#c28e3d;         /* primary gold accent */
+    --gilt-lt:#ddbc7e;      /* gold for dark backgrounds */
+    /* ——— Bold accent ——— */
+    --claret:#6e2a39;       /* deep wine — sparing emphasis */
+    /* ——— Neutrals ——— */
+    --paper:#fbf9f3;
+    --cream:#f2ecde;
+    --greige:#e3d9c3;
+    --line:#d2c7af;
+    --ink:#23231c;
+    --muted:#6b6557;
+    /* ——— Type ——— */
+    --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+    --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:var(--sans);font-weight:300;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 48px;}
+
+  /* ——— top bar ——— */
+  .topbar{
+    position:sticky;top:0;z-index:50;background:var(--forest);
+    border-bottom:1px solid rgba(221,188,126,.28);
+  }
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;
+    height:62px;}
+  .topbar .brand{font-family:var(--serif);font-size:20px;font-weight:600;
+    letter-spacing:.14em;color:var(--paper);text-transform:uppercase;}
+  .topbar .brand span{color:var(--gilt-lt);}
+  .topnav{display:flex;gap:26px;}
+  .topnav a{color:#c8cfc2;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;text-decoration:none;transition:color .15s;}
+  .topnav a:hover{color:var(--gilt-lt);}
+
+  /* ——— hero ——— */
+  .hero{background:var(--ivy);color:var(--paper);
+    padding:84px 0 76px;position:relative;overflow:hidden;}
+  .hero-deco{position:absolute;width:380px;height:380px;border-radius:50%;
+    border:1.5px solid rgba(221,188,126,.22);right:-120px;top:-150px;}
+  .hero-deco.two{width:230px;height:230px;right:40px;top:-40px;
+    border-color:rgba(221,188,126,.13);}
+  .hero .kicker{color:var(--gilt-lt);}
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:62px;
+    line-height:1.04;color:var(--paper);margin:14px 0 0;max-width:760px;}
+  .hero h1 em{font-style:italic;color:var(--gilt-lt);}
+  .hero .lede{font-family:var(--serif);font-style:italic;font-size:22px;
+    color:#cdd5c8;max-width:620px;margin-top:22px;line-height:1.4;}
+  .hero .meta{margin-top:34px;font-size:11px;letter-spacing:.24em;
+    text-transform:uppercase;color:#7f8d80;}
+
+  /* ——— shared ——— */
+  .kicker{font-size:12px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--gilt);font-weight:500;display:flex;align-items:center;gap:11px;}
+  .kicker::before{content:"";width:8px;height:8px;background:var(--gilt);
+    transform:rotate(45deg);display:inline-block;flex-shrink:0;}
+  section{padding:72px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  h2{font-family:var(--serif);font-weight:600;font-size:38px;color:var(--ivy);
+    line-height:1.1;margin:12px 0 8px;}
+  .sec-intro{font-size:15px;color:var(--muted);max-width:620px;margin-bottom:36px;}
+  h3{font-family:var(--serif);font-weight:600;font-size:24px;color:var(--ivy);
+    margin-bottom:14px;}
+  .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--gilt);font-weight:500;margin-bottom:18px;margin-top:38px;}
+  p{font-size:15px;color:var(--ink);}
+  p.small{font-size:13.5px;color:var(--muted);}
+
+  /* ——— foundation pillars ——— */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .pillar{background:var(--cream);border:1px solid var(--line);
+    border-top:3px solid var(--ivy);padding:24px 24px 22px;}
+  .pillar.concert{border-top-color:var(--forest);}
+  .pillar.retail{border-top-color:var(--gilt);}
+  .pillar .pn{font-family:var(--serif);font-size:13px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--gilt);font-weight:600;margin-bottom:6px;}
+  .pillar h4{font-family:var(--serif);font-size:22px;color:var(--ivy);
+    font-weight:600;margin-bottom:8px;}
+  .pillar p{font-size:13.5px;color:var(--muted);line-height:1.5;}
+
+  /* ——— palette evolution note ——— */
+  .evo{display:grid;grid-template-columns:1fr 1fr;gap:0;
+    border:1px solid var(--line);margin-bottom:40px;}
+  .evo > div{padding:22px 26px;}
+  .evo .was{background:var(--cream);}
+  .evo .now{background:var(--ivy);color:var(--paper);}
+  .evo .lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    font-weight:600;margin-bottom:12px;}
+  .evo .was .lbl{color:var(--muted);}
+  .evo .now .lbl{color:var(--gilt-lt);}
+  .evo p{font-size:13.5px;line-height:1.55;}
+  .evo .was p{color:var(--muted);}
+  .evo .now p{color:#d3dace;}
+  .evo .chips{display:flex;gap:6px;margin-top:14px;}
+  .evo .chip{width:34px;height:34px;border-radius:2px;}
+
+  /* ——— swatches ——— */
+  .swatch-group{margin-bottom:30px;}
+  .swatch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .swatch{border:1px solid var(--line);background:#fff;}
+  .swatch .chip{height:96px;display:flex;align-items:flex-end;padding:10px 12px;}
+  .swatch .chip .star{font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    font-weight:500;}
+  .swatch .info{padding:12px 13px 14px;}
+  .swatch .nm{font-family:var(--serif);font-size:17px;font-weight:600;
+    color:var(--ivy);}
+  .swatch .hx{font-size:11.5px;letter-spacing:.08em;color:var(--muted);
+    margin:3px 0 7px;text-transform:uppercase;}
+  .swatch .role{font-size:12px;color:var(--muted);line-height:1.42;}
+
+  /* ——— color in use ——— */
+  .modes{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .mode{border:1px solid var(--line);overflow:hidden;}
+  .mode .demo{padding:30px 28px;}
+  .mode.light .demo{background:var(--paper);}
+  .mode.dark .demo{background:var(--forest);}
+  .mode .dk{font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+    margin-bottom:14px;}
+  .mode.light .dk{color:var(--gilt);}
+  .mode.dark .dk{color:var(--gilt-lt);}
+  .mode .dh{font-family:var(--serif);font-size:30px;font-weight:500;
+    line-height:1.1;}
+  .mode.light .dh{color:var(--ivy);}
+  .mode.dark .dh{color:var(--paper);}
+  .mode .dh em{font-style:italic;}
+  .mode.light .dh em{color:var(--verdigris);}
+  .mode.dark .dh em{color:var(--gilt-lt);}
+  .mode .dp{font-size:13px;margin:12px 0 18px;}
+  .mode.light .dp{color:var(--muted);}
+  .mode.dark .dp{color:#b9c2b6;}
+  .mode .caption{padding:11px 16px;font-size:11.5px;letter-spacing:.04em;
+    background:var(--cream);color:var(--muted);border-top:1px solid var(--line);}
+  .mode.dark .caption{background:#0a1d14;color:#8f9b8c;
+    border-top-color:rgba(221,188,126,.18);}
+
+  /* ——— buttons ——— */
+  .btn{display:inline-block;font-family:var(--sans);font-size:11px;
+    font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+    padding:14px 30px;text-decoration:none;cursor:pointer;
+    border:1px solid transparent;transition:all .16s;}
+  .btn-primary{background:var(--gilt);color:var(--forest);}
+  .btn-primary:hover{background:#b07f31;}
+  .btn-ivy{background:var(--ivy);color:var(--paper);}
+  .btn-ivy:hover{background:#0f3221;}
+  .btn-ghost{background:transparent;border-color:var(--ivy);color:var(--ivy);}
+  .btn-ghost:hover{background:var(--ivy);color:var(--paper);}
+  .btn-ghost-lt{background:transparent;border-color:var(--gilt-lt);
+    color:var(--gilt-lt);}
+  .btn-claret{background:var(--claret);color:var(--paper);}
+  .btn-claret:hover{background:#5a2230;}
+
+  /* ——— type specimens ——— */
+  .typecard{border:1px solid var(--line);background:#fff;margin-bottom:16px;}
+  .typecard .tc-head{display:flex;justify-content:space-between;
+    padding:10px 18px;background:var(--cream);border-bottom:1px solid var(--line);
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+  .typecard .tc-body{padding:24px 18px;}
+  .spec-display{font-family:var(--serif);font-size:52px;font-weight:500;
+    color:var(--ivy);line-height:1.05;}
+  .spec-h{font-family:var(--serif);font-size:32px;font-weight:600;
+    color:var(--ivy);}
+  .spec-lede{font-family:var(--serif);font-size:21px;font-style:italic;
+    color:var(--muted);}
+  .spec-label{font-family:var(--sans);font-size:12px;font-weight:500;
+    letter-spacing:.28em;text-transform:uppercase;color:var(--gilt);}
+  .spec-body{font-family:var(--sans);font-size:15px;font-weight:300;
+    color:var(--ink);max-width:560px;}
+  .scale-row{display:flex;align-items:baseline;gap:20px;
+    padding:11px 0;border-bottom:1px solid var(--line);}
+  .scale-row:last-child{border-bottom:none;}
+  .scale-row .sz{font-size:11px;letter-spacing:.1em;color:var(--gilt);
+    width:118px;flex-shrink:0;text-transform:uppercase;}
+  .scale-row .ex{font-family:var(--serif);color:var(--ivy);line-height:1;}
+
+  /* ——— spacing ——— */
+  .spacing{display:flex;flex-direction:column;gap:9px;}
+  .sp-row{display:flex;align-items:center;gap:18px;}
+  .sp-row .sp-bar{background:var(--verdigris);height:18px;}
+  .sp-row .sp-tx{font-size:12.5px;color:var(--muted);}
+  .sp-row .sp-tx b{color:var(--ink);font-weight:500;}
+
+  /* ——— component cards ——— */
+  .comp{border:1px solid var(--line);background:#fff;margin-bottom:16px;}
+  .comp .ch{padding:9px 18px;background:var(--cream);
+    border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);}
+  .comp .cb{padding:26px 18px;display:flex;gap:14px;flex-wrap:wrap;
+    align-items:center;}
+  .comp .cb.col{flex-direction:column;align-items:stretch;}
+  .comp .note{padding:0 18px 18px;font-size:12.5px;color:var(--muted);}
+
+  /* placeholder image box (the wireframe convention) */
+  .imgbox{border:1.5px dashed var(--gilt);background:
+    repeating-linear-gradient(45deg,var(--cream),var(--cream) 11px,
+    #ece4d2 11px,#ece4d2 22px);
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:26px 20px;min-height:120px;width:100%;}
+  .imgbox .ib-in{}
+  .imgbox .ib-tag{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--gilt);font-weight:600;display:block;margin-bottom:6px;}
+  .imgbox .ib-tx{font-family:var(--serif);font-style:italic;font-size:15px;
+    color:var(--ivy);}
+
+  /* mini nav demo */
+  .navdemo{width:100%;background:var(--ivy);display:flex;
+    align-items:center;justify-content:space-between;padding:14px 22px;}
+  .navdemo .nb{font-family:var(--serif);font-size:16px;font-weight:600;
+    letter-spacing:.14em;color:var(--paper);text-transform:uppercase;}
+  .navdemo .nl{display:flex;gap:20px;}
+  .navdemo .nl a{font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:#c5cdbf;text-decoration:none;}
+  .navdemo .nl a.on{color:var(--gilt-lt);}
+
+  /* kicker label demo */
+  .ctaband{width:100%;background:var(--ivy);color:var(--paper);
+    text-align:center;padding:40px 24px;}
+  .ctaband .cbh{font-family:var(--serif);font-size:30px;font-weight:500;
+    color:var(--paper);}
+  .ctaband .cbh em{font-style:italic;color:var(--gilt-lt);}
+  .ctaband p{color:#c4ccbd;font-size:13.5px;margin:9px 0 20px;}
+
+  /* ——— do / dont ——— */
+  .dd{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .dd-box{border:1px solid var(--line);padding:22px 24px;}
+  .dd-box.do{background:#eef1e8;border-color:#cdd6bd;}
+  .dd-box.dont{background:#f3e9e6;border-color:#ddc8bf;}
+  .dd-box .ddl{font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+    font-weight:600;margin-bottom:13px;}
+  .dd-box.do .ddl{color:#4a6340;}
+  .dd-box.dont .ddl{color:#9c5b46;}
+  .dd-box ul{list-style:none;}
+  .dd-box li{font-size:13.5px;line-height:1.45;color:var(--ink);
+    padding:6px 0 6px 22px;position:relative;}
+  .dd-box li::before{position:absolute;left:0;top:6px;font-weight:600;}
+  .dd-box.do li::before{content:"\2713";color:#5a7a4c;}
+  .dd-box.dont li::before{content:"\2715";color:#b06a52;}
+
+  /* ——— voice lexicon ——— */
+  .lex{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .lex-col{border:1px solid var(--line);padding:22px 24px;background:var(--cream);}
+  .lex-col h4{font-family:var(--serif);font-size:20px;color:var(--ivy);
+    font-weight:600;margin-bottom:4px;}
+  .lex-col .ls{font-size:12px;color:var(--muted);margin-bottom:14px;}
+  .lex-col .word{display:inline-block;font-family:var(--serif);font-size:15px;
+    font-style:italic;color:var(--ink);padding:3px 0;margin-right:14px;}
+
+  /* ——— footer ——— */
+  footer{background:var(--forest);color:#9aa79a;padding:40px 0;
+    text-align:center;}
+  footer .fl{font-family:var(--serif);font-size:20px;font-weight:600;
+    letter-spacing:.14em;color:var(--paper);text-transform:uppercase;
+    margin-bottom:8px;}
+  footer .fl span{color:var(--gilt-lt);}
+  footer p{font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:#7f8d80;}
+  footer a{color:var(--gilt-lt);text-decoration:none;}
+
+  @media(max-width:780px){
+    .wrap{padding:0 24px;}
+    .hero h1{font-size:42px;}
+    h2{font-size:30px;}
+    .pillars,.swatch-grid,.modes,.dd,.lex,.evo{grid-template-columns:1fr;}
+    .topnav{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">The <span>Ivy</span></div>
+    <nav class="topnav">
+      <a href="#foundation">Foundation</a>
+      <a href="#color">Color</a>
+      <a href="#type">Type</a>
+      <a href="#layout">Layout</a>
+      <a href="#components">Components</a>
+      <a href="#voice">Voice</a>
+      <a href="index.html">View Wireframes &rsaquo;</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ——— HERO ——— -->
+<div class="hero">
+  <div class="hero-deco"></div>
+  <div class="hero-deco two"></div>
+  <div class="wrap">
+    <div class="kicker">Visual Design System &mdash; v1</div>
+    <h1>The look, feel &amp; <em>language</em> of The Ivy</h1>
+    <p class="lede">A single reference for the brand across its three rooms &mdash; weddings, the concert hall, and retail. Bolder than before, still unmistakably refined.</p>
+    <div class="meta">Built from the Luxury Venue Website Study &nbsp;&middot;&nbsp; May 2026</div>
+  </div>
+</div>
+
+<!-- ——— 01 FOUNDATION ——— -->
+<section id="foundation">
+  <div class="wrap">
+    <div class="kicker">01 &mdash; Foundation</div>
+    <h2>One brand, three rooms</h2>
+    <p class="sec-intro">The Ivy is a single identity expressed across three offerings. The logotype, typefaces, and core palette stay constant. What shifts is tone &mdash; each room is allowed its own register, the way rooms in one grand house feel different but belong together.</p>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pn">Room I</div>
+        <h4>Weddings &amp; Events</h4>
+        <p>Warm, romantic, light. Cream grounds, ivy green, soft gold. Copy speaks in second person and sells a feeling.</p>
+      </div>
+      <div class="pillar concert">
+        <div class="pn">Room II</div>
+        <h4>The Concert Hall</h4>
+        <p>Dark, charged, dramatic. Forest-black grounds, stage-light gold, the claret accent earns its keep here.</p>
+      </div>
+      <div class="pillar retail">
+        <div class="pn">Room III</div>
+        <h4>The Shop</h4>
+        <p>Crisp, editorial, tactile. Paper-white grounds, gold detailing, product photography as the hero.</p>
+      </div>
+    </div>
+    <p class="small" style="margin-top:24px;"><b style="color:var(--ink);font-weight:500;">Positioning in one line:</b> &ldquo;A storied estate where a wedding, a concert, and a beautifully made object all feel like they belong to the same evening.&rdquo;</p>
+  </div>
+</section>
+
+<!-- ——— 02 COLOR ——— -->
+<section id="color">
+  <div class="wrap">
+    <div class="kicker">02 &mdash; Color</div>
+    <h2>The refined palette</h2>
+    <p class="sec-intro">The original palette was right in spirit but quiet in voice. The refinement keeps the neutral foundation and the ivy-green anchor, then sharpens the accents: a richer, more luminous gold, a bolder mid-green for interaction, and one disciplined accent of claret for moments that need to raise their voice.</p>
+
+    <div class="evo">
+      <div class="was">
+        <div class="lbl">Before &mdash; quiet</div>
+        <p>Muted ivy green, a soft tan "brass," and a sage that competed with the green. Elegant, but it whispered &mdash; accents blended into the neutrals instead of leading.</p>
+        <div class="chips">
+          <span class="chip" style="background:#1f3a2e;"></span>
+          <span class="chip" style="background:#b08d57;"></span>
+          <span class="chip" style="background:#8a9a7b;"></span>
+          <span class="chip" style="background:#f4efe6;"></span>
+        </div>
+      </div>
+      <div class="now">
+        <div class="lbl">After &mdash; bolder, still refined</div>
+        <p>A deeper, more saturated ivy. A true luminous gilt in place of the tan. A confident verdigris for links and interaction. And claret &mdash; held in reserve &mdash; for genuine emphasis.</p>
+        <div class="chips">
+          <span class="chip" style="background:#16402c;"></span>
+          <span class="chip" style="background:#c28e3d;"></span>
+          <span class="chip" style="background:#3c7355;"></span>
+          <span class="chip" style="background:#6e2a39;"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="swatch-group">
+      <div class="eyebrow" style="margin-top:0;">Greens &mdash; the brand anchor</div>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="chip" style="background:#16402c;"><span class="star" style="color:#ddbc7e;">Primary</span></div>
+          <div class="info"><div class="nm">Ivy</div><div class="hx">#16402C</div>
+            <div class="role">The signature. Headers, nav, primary surfaces, the logotype.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#0c2419;"><span class="star" style="color:#ddbc7e;">Deepest</span></div>
+          <div class="info"><div class="nm">Forest</div><div class="hx">#0C2419</div>
+            <div class="role">Near-black green. Dark sections and the concert-hall ground.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#3c7355;"><span class="star" style="color:#fbf9f3;">Interaction</span></div>
+          <div class="info"><div class="nm">Verdigris</div><div class="hx">#3C7355</div>
+            <div class="role">The bold mid-green. Links, hover states, small accents on light.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#e3d9c3;"><span class="star" style="color:#6b6557;">Tint</span></div>
+          <div class="info"><div class="nm">Greige</div><div class="hx">#E3D9C3</div>
+            <div class="role">A warm tint to separate sections without a hard edge.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="swatch-group">
+      <div class="eyebrow" style="margin-top:0;">Metal &amp; bold accent</div>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="chip" style="background:#c28e3d;"><span class="star" style="color:#0c2419;">Accent</span></div>
+          <div class="info"><div class="nm">Gilt</div><div class="hx">#C28E3D</div>
+            <div class="role">The primary accent. Buttons, rules, kickers, fine detailing.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#ddbc7e;"><span class="star" style="color:#0c2419;">On dark</span></div>
+          <div class="info"><div class="nm">Gilt Light</div><div class="hx">#DDBC7E</div>
+            <div class="role">Gold for dark grounds &mdash; legible where Gilt goes muddy.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#6e2a39;"><span class="star" style="color:#f2ecde;">Sparing</span></div>
+          <div class="info"><div class="nm">Claret</div><div class="hx">#6E2A39</div>
+            <div class="role">Reserved emphasis &mdash; a featured CTA, a sale tag, a date.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#23231c;"><span class="star" style="color:#e3d9c3;">Text</span></div>
+          <div class="info"><div class="nm">Ink</div><div class="hx">#23231C</div>
+            <div class="role">Body copy on light grounds. Softer than pure black.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="swatch-group">
+      <div class="eyebrow" style="margin-top:0;">Neutral foundation</div>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="chip" style="background:#fbf9f3;border-bottom:1px solid #d2c7af;"><span class="star" style="color:#6b6557;">Ground</span></div>
+          <div class="info"><div class="nm">Paper</div><div class="hx">#FBF9F3</div>
+            <div class="role">The default page background. Warm, never stark white.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#f2ecde;"><span class="star" style="color:#6b6557;">Surface</span></div>
+          <div class="info"><div class="nm">Cream</div><div class="hx">#F2ECDE</div>
+            <div class="role">Cards, panels, and quiet alternating sections.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#d2c7af;"><span class="star" style="color:#6b6557;">Line</span></div>
+          <div class="info"><div class="nm">Line</div><div class="hx">#D2C7AF</div>
+            <div class="role">Borders, hairline rules, dividers. Used freely.</div></div>
+        </div>
+        <div class="swatch">
+          <div class="chip" style="background:#6b6557;"><span class="star" style="color:#f2ecde;">Secondary</span></div>
+          <div class="info"><div class="nm">Muted</div><div class="hx">#6B6557</div>
+            <div class="role">Captions, secondary text, fine print on light grounds.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="eyebrow">The ratio &mdash; how much of each</div>
+    <p class="small">Hold the discipline: roughly <b style="color:var(--ink);font-weight:500;">70% neutral</b> (paper, cream), <b style="color:var(--ink);font-weight:500;">20% ivy/forest green</b>, <b style="color:var(--ink);font-weight:500;">8% gilt</b>, and <b style="color:var(--ink);font-weight:500;">2% claret</b>. Claret is bold precisely because it is rare &mdash; if it appears more than once or twice per screen, it stops working.</p>
+  </div>
+</section>
+
+<!-- ——— 03 COLOR IN USE ——— -->
+<section id="modes">
+  <div class="wrap">
+    <div class="kicker">03 &mdash; Color in use</div>
+    <h2>Two grounds, one family</h2>
+    <p class="sec-intro">Weddings and retail live on the light ground. The concert hall inverts onto forest-black for drama. The accents carry across both so the brand still reads as one.</p>
+    <div class="modes">
+      <div class="mode light">
+        <div class="demo">
+          <div class="dk">Light ground &mdash; Weddings &amp; Shop</div>
+          <div class="dh">Where your <em>story</em> begins</div>
+          <p class="dp">Paper background, ivy headline, verdigris on the linked word, gilt on the rule and the call to action.</p>
+          <span class="btn btn-primary">Schedule a Visit</span>
+        </div>
+        <div class="caption">Paper #FBF9F3 &middot; Ivy #16402C &middot; Verdigris #3C7355 &middot; Gilt #C28E3D</div>
+      </div>
+      <div class="mode dark">
+        <div class="demo">
+          <div class="dk">Dark ground &mdash; The Concert Hall</div>
+          <div class="dh">The room comes <em>alive</em></div>
+          <p class="dp">Forest background, paper headline, gilt-light on the linked word. Claret powers the ticketing button.</p>
+          <span class="btn btn-claret">Get Tickets</span>
+        </div>
+        <div class="caption">Forest #0C2419 &middot; Paper #FBF9F3 &middot; Gilt Light #DDBC7E &middot; Claret #6E2A39</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— 04 TYPOGRAPHY ——— -->
+<section id="type">
+  <div class="wrap">
+    <div class="kicker">04 &mdash; Typography</div>
+    <h2>Two typefaces, a strict hierarchy</h2>
+    <p class="sec-intro">A high-contrast display serif carries the elegance; a clean geometric sans handles everything functional. The pairing is unchanged from the study &mdash; it works. Discipline is in the hierarchy, not in adding more fonts.</p>
+
+    <div class="typecard">
+      <div class="tc-head"><span>Display &mdash; Cormorant Garamond</span><span>Headlines, names, ledes</span></div>
+      <div class="tc-body">
+        <div class="spec-display">An estate for<br>your finest hours</div>
+        <p class="spec-lede" style="margin-top:14px;">Italic for ledes and pull quotes &mdash; warmth without ornament.</p>
+      </div>
+    </div>
+
+    <div class="typecard">
+      <div class="tc-head"><span>Text &mdash; Jost</span><span>Body, labels, navigation, UI</span></div>
+      <div class="tc-body">
+        <p class="spec-label" style="margin-bottom:14px;">&mdash; Letter-Spaced Label In Caps &mdash;</p>
+        <p class="spec-body">Jost handles body copy, navigation, buttons, and captions. Set body text at a light weight with generous line height so long-scroll pages stay calm and readable. Labels are set in caps with wide tracking.</p>
+      </div>
+    </div>
+
+    <div class="eyebrow">The type scale</div>
+    <div class="typecard">
+      <div class="tc-body" style="padding-top:8px;padding-bottom:8px;">
+        <div class="scale-row"><span class="sz">Display / 62px</span><span class="ex" style="font-size:40px;font-weight:500;">Hero headline</span></div>
+        <div class="scale-row"><span class="sz">H2 / 38px</span><span class="ex" style="font-size:30px;font-weight:600;">Section heading</span></div>
+        <div class="scale-row"><span class="sz">H3 / 24px</span><span class="ex" style="font-size:22px;font-weight:600;">Subsection heading</span></div>
+        <div class="scale-row"><span class="sz">Lede / 22px italic</span><span class="ex" style="font-size:20px;font-style:italic;color:var(--muted);">An introductory line</span></div>
+        <div class="scale-row"><span class="sz">Body / 15px</span><span class="ex" style="font-family:var(--sans);font-size:15px;font-weight:300;color:var(--ink);">Standard paragraph copy</span></div>
+        <div class="scale-row"><span class="sz">Label / 12px caps</span><span class="ex" style="font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gilt);">Kicker label</span></div>
+        <div class="scale-row"><span class="sz">Caption / 12px</span><span class="ex" style="font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);">Image caption &amp; fine print</span></div>
+      </div>
+    </div>
+    <p class="small">Rule of thumb: <b style="color:var(--ink);font-weight:500;">serif for anything emotional, sans for anything functional.</b> Never set body copy in the serif; never set a hero headline in the sans. A script face may appear once &mdash; a couple's name, a date &mdash; never as running text.</p>
+  </div>
+</section>
+
+<!-- ——— 05 LAYOUT & SPACING ——— -->
+<section id="layout">
+  <div class="wrap">
+    <div class="kicker">05 &mdash; Layout &amp; spacing</div>
+    <h2>Space is the luxury</h2>
+    <p class="sec-intro">Generous margins and few elements per screen are what read as expensive. The grid and spacing scale exist to protect that emptiness.</p>
+
+    <div class="eyebrow" style="margin-top:0;">Spacing scale &mdash; an 8px base</div>
+    <div class="typecard"><div class="tc-body">
+      <div class="spacing">
+        <div class="sp-row"><span class="sp-bar" style="width:8px;"></span><span class="sp-tx"><b>8px</b> &mdash; tight gaps, inside small components</span></div>
+        <div class="sp-row"><span class="sp-bar" style="width:16px;"></span><span class="sp-tx"><b>16px</b> &mdash; default gap between related elements</span></div>
+        <div class="sp-row"><span class="sp-bar" style="width:24px;"></span><span class="sp-tx"><b>24px</b> &mdash; card padding, paragraph spacing</span></div>
+        <div class="sp-row"><span class="sp-bar" style="width:48px;"></span><span class="sp-tx"><b>48px</b> &mdash; page side margins, gap between blocks</span></div>
+        <div class="sp-row"><span class="sp-bar" style="width:72px;"></span><span class="sp-tx"><b>72px</b> &mdash; vertical padding between full sections</span></div>
+        <div class="sp-row"><span class="sp-bar" style="width:120px;"></span><span class="sp-tx"><b>120px</b> &mdash; breathing room around hero &amp; CTA bands</span></div>
+      </div>
+    </div></div>
+
+    <div class="eyebrow">Grid &amp; containers</div>
+    <p class="small"><b style="color:var(--ink);font-weight:500;">Content max-width 1080px,</b> centered, with 48px side margins. A 12-column grid underneath; most layouts use 1, 2, or 3 columns. Full-bleed heroes and image bands break the container edge-to-edge. Mobile collapses everything to a single column and drops side margins to 24px.</p>
+  </div>
+</section>
+
+<!-- ——— 06 COMPONENTS ——— -->
+<section id="components">
+  <div class="wrap">
+    <div class="kicker">06 &mdash; Components</div>
+    <h2>The building blocks</h2>
+    <p class="sec-intro">A small kit, used consistently. Every page in the wireframes is assembled from these.</p>
+
+    <div class="comp">
+      <div class="ch">Buttons</div>
+      <div class="cb">
+        <span class="btn btn-primary">Schedule a Visit</span>
+        <span class="btn btn-ivy">Inquire</span>
+        <span class="btn btn-ghost">Explore the Estate</span>
+        <span class="btn btn-claret">Get Tickets</span>
+      </div>
+      <div class="note">Primary (gilt) is the main call to action on light grounds. Ivy is its quieter sibling. Ghost is for secondary actions. Claret is reserved for ticketing and high-urgency moments only &mdash; one per screen at most. Labels are always caps, letter-spaced, and an invitation: &ldquo;Schedule a Visit,&rdquo; never &ldquo;Book Now.&rdquo;</div>
+    </div>
+
+    <div class="comp">
+      <div class="ch">Navigation bar</div>
+      <div class="cb col">
+        <div class="navdemo">
+          <div class="nb">The Ivy</div>
+          <div class="nl">
+            <a class="on">Home</a><a>Weddings</a><a>Concert Hall</a>
+            <a>The Shop</a><a>About</a><a>Visit</a>
+          </div>
+        </div>
+      </div>
+      <div class="note">Slim, sticky, ivy ground. Serif logotype left, letter-spaced sans links right. The active page is marked in gilt-light. On the concert hall, the bar shifts to forest-black.</div>
+    </div>
+
+    <div class="comp">
+      <div class="ch">Kicker label + heading</div>
+      <div class="cb col">
+        <div style="padding:6px 4px;">
+          <div class="kicker" style="margin-bottom:8px;">Weddings &amp; Events</div>
+          <h3 style="margin-bottom:0;">A heading sits directly beneath</h3>
+        </div>
+      </div>
+      <div class="note">The diamond-and-caps kicker opens every major section. It orients the reader and carries a consistent hit of gilt down the page.</div>
+    </div>
+
+    <div class="comp">
+      <div class="ch">Placeholder image box &mdash; wireframe convention</div>
+      <div class="cb col">
+        <div class="imgbox"><div class="ib-in">
+          <span class="ib-tag">Image &mdash; Hero</span>
+          <span class="ib-tx">Wide interior shot of the wedding venue at golden hour</span>
+        </div></div>
+      </div>
+      <div class="note">Until real photography is commissioned, every image is a dashed gilt box with a hatched fill. A small caps tag names the slot; an italic line describes the shot to brief the photographer. This is the convention used throughout the wireframe pages.</div>
+    </div>
+
+    <div class="comp">
+      <div class="ch">Call-to-action band</div>
+      <div class="cb col">
+        <div class="ctaband">
+          <div class="cbh">Begin <em>your</em> chapter at The Ivy</div>
+          <p>A short, warm invitation &mdash; one line, no hard sell.</p>
+          <span class="btn btn-primary">Schedule a Visit</span>
+        </div>
+      </div>
+      <div class="note">A full-bleed ivy (or forest) band closes long-scroll pages: one serif line, one supporting sentence, one button.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— 07 IMAGERY ——— -->
+<section id="imagery">
+  <div class="wrap">
+    <div class="kicker">07 &mdash; Imagery</div>
+    <h2>Photography direction</h2>
+    <p class="sec-intro">Imagery carries these pages &mdash; the study was unambiguous about it. The system below is what the eventual shoot should deliver.</p>
+    <div class="dd">
+      <div class="dd-box do">
+        <div class="ddl">Commission this</div>
+        <ul>
+          <li>Real shots of the actual property and real events &mdash; never stock</li>
+          <li>One consistent warm grade across every frame; natural, golden-hour light</li>
+          <li>A mix of wide (sells scale), close detail (sells craft), and slow ambient video (sells atmosphere)</li>
+          <li>Tight curation &mdash; few, exceptional images over a full archive</li>
+          <li>For the concert hall: low-light, stage-glow, the room at night</li>
+        </ul>
+      </div>
+      <div class="dd-box dont">
+        <div class="ddl">Avoid this</div>
+        <ul>
+          <li>Stock photography of anonymous venues &mdash; it reads as budget instantly</li>
+          <li>Mixed grades &mdash; phone snaps beside professional shots</li>
+          <li>Dumping every photo into one undifferentiated grid</li>
+          <li>Heavy filters, cool blue casts, or trend-driven color treatments</li>
+          <li>Text baked into images &mdash; keep type live and accessible</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— 08 VOICE ——— -->
+<section id="voice">
+  <div class="wrap">
+    <div class="kicker">08 &mdash; Voice</div>
+    <h2>How The Ivy speaks</h2>
+    <p class="sec-intro">Addressed to &ldquo;you.&rdquo; Confident, unhurried, never pushy. Sells the feeling first and proves it with one specific, named detail. The copy in the wireframes follows these rules.</p>
+
+    <div class="lex">
+      <div class="lex-col">
+        <h4>Use &mdash; earned, when true</h4>
+        <p class="ls">Vocabulary that still carries weight when backed by a real detail.</p>
+        <span class="word">storied</span><span class="word">the grounds</span>
+        <span class="word">a celebration</span><span class="word">an affair</span>
+        <span class="word">inquire</span><span class="word">artistry</span>
+        <span class="word">intimate</span><span class="word">your story</span>
+      </div>
+      <div class="lex-col">
+        <h4>Retire &mdash; or earn hard</h4>
+        <p class="ls">Now table-stakes across every competitor &mdash; nearly invisible.</p>
+        <span class="word">elevated</span><span class="word">curated</span>
+        <span class="word">timeless</span><span class="word">bespoke</span>
+        <span class="word">effortless</span><span class="word">experiential</span>
+        <span class="word">unforgettable</span><span class="word">luxury (stated)</span>
+      </div>
+    </div>
+    <p class="small" style="margin-top:22px;"><b style="color:var(--ink);font-weight:500;">The test:</b> if a sentence would work word-for-word on a competitor's site, it isn't saying anything yet. Replace the adjective with a fact &mdash; a year, a name, a number, a tree.</p>
+  </div>
+</section>
+
+<!-- ——— 09 DO / DONT ——— -->
+<section id="principles">
+  <div class="wrap">
+    <div class="kicker">09 &mdash; In short</div>
+    <h2>Hold the line on these</h2>
+    <div class="dd">
+      <div class="dd-box do">
+        <div class="ddl">Do</div>
+        <ul>
+          <li>Let one idea own each screen &mdash; emptiness reads as confidence</li>
+          <li>Lead with a full-bleed hero: one image, one line, one invitation</li>
+          <li>Keep claret rare &mdash; that is the entire source of its power</li>
+          <li>Pair serif for emotion, sans for function &mdash; no third typeface</li>
+          <li>Write to &ldquo;you,&rdquo; and back every claim with a specific detail</li>
+        </ul>
+      </div>
+      <div class="dd-box dont">
+        <div class="ddl">Don't</div>
+        <ul>
+          <li>Crowd a screen with competing calls to action</li>
+          <li>Let gilt and claret appear at equal weight &mdash; gilt leads</li>
+          <li>Use &ldquo;Book Now&rdquo; &mdash; the inquiry is the first act of service</li>
+          <li>Reach for buzzwords in place of substance and proof</li>
+          <li>Introduce pure white, cool greys, or off-system color</li>
+        </ul>
+      </div>
+    </div>
+    <p class="small" style="margin-top:26px;text-align:center;font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ivy);">Luxury online is restraint, real beauty, and a confident, quiet voice.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fl">The <span>Ivy</span></div>
+    <p>Visual Design System v1 &nbsp;&middot;&nbsp; <a href="index.html">Home wireframe</a> &nbsp;&middot;&nbsp; <a href="weddings.html">Weddings wireframe</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
