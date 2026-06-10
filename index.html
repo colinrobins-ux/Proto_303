@@ -66,14 +66,14 @@
     .hero {
       background: var(--ivy);
       color: var(--paper);
-      padding: 60px 0;
+      padding: 40px 0 30px 0;
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 60vh;
+      min-height: auto;
     }
 
     .hero-deco {
@@ -149,6 +149,10 @@
     section {
       padding: 48px 0;
       border-bottom: 1px solid var(--line);
+    }
+
+    section:first-of-type {
+      padding-top: 100px;
     }
 
     section:last-of-type {
@@ -243,7 +247,7 @@
 
     /* ——— CTA Section ——— */
     .cta-section {
-      padding: 60px 0 0 0;
+      padding: 60px 0 80px 0;
       text-align: center;
       background: linear-gradient(135deg, var(--ivy) 0%, var(--forest) 100%);
       color: var(--paper);
