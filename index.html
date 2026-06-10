@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Ivy — Wedding Venue & Event Space</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* ——— Greens ——— */
+      --ivy: #16402c;
+      --forest: #0c2419;
+      --verdigris: #3c7355;
+      /* ——— Metal ——— */
+      --gilt: #c28e3d;
+      --gilt-lt: #ddbc7e;
+      /* ——— Bold accent ——— */
+      --claret: #6e2a39;
+      /* ——— Neutrals ——— */
+      --paper: #fbf9f3;
+      --cream: #f2ecde;
+      --greige: #e3d9c3;
+      --line: #d2c7af;
+      --ink: #23231c;
+      --muted: #6b6557;
+      /* ——— Type ——— */
+      --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 100%;
+      padding: 0 20px;
+    }
+
+    @media (min-width: 768px) {
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 48px;
+      }
+    }
+
+    /* ——— Hero Section ——— */
+    .hero {
+      background: var(--ivy);
+      color: var(--paper);
+      padding: 60px 0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+    }
+
+    .hero-deco {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(221, 188, 126, 0.22);
+      right: -60px;
+      top: -80px;
+    }
+
+    .hero-deco.two {
+      width: 140px;
+      height: 140px;
+      right: 20px;
+      top: -20px;
+      border-color: rgba(221, 188, 126, 0.13);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 100%;
+    }
+
+    .hero-logo {
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto 24px;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 48px;
+      line-height: 1.1;
+      color: var(--paper);
+      letter-spacing: 0.08em;
+    }
+
+    .hero .lede {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 18px;
+      color: #cdd5c8;
+      margin-top: 16px;
+      line-height: 1.4;
+      max-width: 100%;
+    }
+
+    @media (min-width: 768px) {
+      .hero {
+        padding: 84px 0 76px;
+        min-height: 80vh;
+      }
+
+      .hero h1 {
+        font-size: 62px;
+      }
+
+      .hero .lede {
+        font-size: 22px;
+      }
+
+      .hero-logo {
+        max-width: 350px;
+      }
+    }
+
+    /* ——— Services Section ——— */
+    section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 32px;
+      color: var(--ivy);
+      line-height: 1.1;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      section {
+        padding: 72px 0;
+      }
+
+      .section-title {
+        font-size: 38px;
+        text-align: left;
+        margin-bottom: 36px;
+      }
+    }
+
+    .kicker {
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gilt);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 16px;
+      justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+      .kicker {
+        justify-content: flex-start;
+      }
+    }
+
+    .kicker::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: var(--gilt);
+      transform: rotate(45deg);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+    }
+
+    .service-card {
+      background: var(--cream);
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--ivy);
+      padding: 24px;
+      border-radius: 2px;
+    }
+
+    .service-card h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 20px;
+      color: var(--ivy);
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ——— CTA Section ——— */
+    .cta-section {
+      padding: 60px 0;
+      text-align: center;
+      background: linear-gradient(135deg, var(--ivy) 0%, var(--forest) 100%);
+      color: var(--paper);
+      margin: 40px 0;
+      border-radius: 4px;
+    }
+
+    .cta-section h2 {
+      color: var(--paper);
+      margin-bottom: 24px;
+      font-size: 32px;
+    }
+
+    .cta-section p {
+      color: #cdd5c8;
+      margin-bottom: 32px;
+      font-size: 16px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--gilt);
+      color: var(--ivy);
+      padding: 16px 48px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background: var(--gilt-lt);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ——— Form Modal ——— */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--paper);
+      border-radius: 4px;
+      padding: 40px 24px;
+      max-width: 500px;
+      width: 100%;
+      margin: auto;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (min-width: 768px) {
+      .modal-content {
+        padding: 48px;
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--ink);
+    }
+
+    .form-title {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 28px;
+      color: var(--ivy);
+      margin-bottom: 24px;
+      padding-top: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ivy);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      background: var(--cream);
+      font-family: var(--sans);
+      font-size: 15px;
+      color: var(--ink);
+      border-radius: 2px;
+      transition: border-color 0.2s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--gilt);
+      background: white;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .submit-button {
+      width: 100%;
+      background: var(--ivy);
+      color: var(--paper);
+      padding: 14px 24px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .submit-button:hover {
+      background: var(--forest);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .submit-button:disabled {
+      background: var(--muted);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-message {
+      padding: 12px 14px;
+      border-radius: 2px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .form-message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      display: block;
+    }
+
+    .form-message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      display: block;
+    }
+
+    /* ——— Footer ——— */
+    footer {
+      background: var(--forest);
+      color: #c8cfc2;
+      padding: 40px 20px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    footer p {
+      color: #c8cfc2;
+      margin-bottom: 8px;
+    }
+
+    footer a {
+      color: var(--gilt-lt);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--gilt);
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-deco"></div>
+    <div class="hero-deco two"></div>
+    <div class="hero-content">
+      <div class="hero-logo">
+        <svg viewBox="0 0 690 480" role="img" xmlns="http://www.w3.org/2000/svg" style="width: 100%;">
+          <title>The Ivy</title>
+          <rect x="0" y="0" width="680" height="470" fill="#ddbc7e" />
+          <line x1="120" y1="358" x2="560" y2="358" stroke="#fbf9f3" stroke-width="2" />
+          <g fill="none" stroke="#fbf9f3" stroke-width="2" stroke-linejoin="round">
+            <path d="M135,150 C150,205 158,278 150,330 C146,346 142,352 135,354 C128,352 124,346 120,330 C112,278 120,205 135,150 Z" />
+            <line x1="135" y1="166" x2="135" y2="346" stroke-width="1.5" opacity="0.7" />
+            <line x1="135" y1="354" x2="135" y2="358" />
+            <path d="M545,150 C560,205 568,278 560,330 C556,346 552,352 545,354 C538,352 534,346 530,330 C522,278 530,205 545,150 Z" />
+            <line x1="545" y1="166" x2="545" y2="346" stroke-width="1.5" opacity="0.7" />
+            <line x1="545" y1="354" x2="545" y2="358" />
+          </g>
+          <path d="M340,130 L430,250 L408,250 L340,152 L272,250 L250,250 Z" fill="#fbf9f3" stroke="#fbf9f3" stroke-width="2" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <h1>The Ivy</h1>
+      <p class="lede">Luxury Venue for Weddings, Events & Celebrations</p>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="wrap">
+    <div class="kicker">Services</div>
+    <h2 class="section-title">What We Offer</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Weddings</h3>
+        <p>Create your perfect day with our elegant spaces, from intimate ceremonies to grand receptions. We handle every detail with luxury and grace.</p>
+      </div>
+      <div class="service-card">
+        <h3>Quinceañeras</h3>
+        <p>Celebrate this milestone moment in a sophisticated setting. Our team specializes in making your debutante ball unforgettable.</p>
+      </div>
+      <div class="service-card">
+        <h3>Concerts & Performances</h3>
+        <p>Host world-class entertainment in an intimate, acoustically refined venue. Perfect for private performances and exclusive events.</p>
+      </div>
+      <div class="service-card">
+        <h3>Corporate Events</h3>
+        <p>Impress clients and colleagues with sophisticated meetings, galas, and networking events in our distinguished spaces.</p>
+      </div>
+      <div class="service-card">
+        <h3>Private Dinners</h3>
+        <p>Exclusive dining experiences crafted for distinguished guests. Our culinary team creates memorable gastronomic moments.</p>
+      </div>
+      <div class="service-card">
+        <h3>Custom Celebrations</h3>
+        <p>Anniversaries, milestone birthdays, and special occasions deserve an extraordinary setting. We make every moment elegant.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="wrap" style="padding: 0;">
+    <div class="cta-section">
+      <h2>Begin Your Event</h2>
+      <p>Let us help you create an unforgettable experience at The Ivy</p>
+      <button class="cta-button" onclick="openForm()">Inquire Now</button>
+    </div>
+  </section>
+
+  <!-- Contact Form Modal -->
+  <div class="modal" id="formModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeForm()">&times;</button>
+      <h2 class="form-title">Event Inquiry</h2>
+      <div class="form-message" id="formMessage"></div>
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="event">Event Type *</label>
+          <select id="event" name="event" required>
+            <option value="">Select an event type...</option>
+            <option value="Wedding">Wedding</option>
+            <option value="Quinceañera">Quinceañera</option>
+            <option value="Concert/Performance">Concert & Performance</option>
+            <option value="Corporate Event">Corporate Event</option>
+            <option value="Private Dinner">Private Dinner</option>
+            <option value="Other">Other Celebration</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="date">Preferred Date</label>
+          <input type="date" id="date" name="date">
+        </div>
+
+        <div class="form-group">
+          <label for="message">Additional Information *</label>
+          <textarea id="message" name="message" required placeholder="Tell us about your vision for this event..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-button">Send Inquiry</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 The Ivy Venue. All rights reserved.</p>
+    <p>Luxury Event Space | Weddings • Celebrations • Corporate Events</p>
+    <p><a href="mailto:rcolinrobins@gmail.com">Contact Us</a></p>
+  </footer>
+
+  <script>
+    function openForm() {
+      document.getElementById('formModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeForm() {
+      document.getElementById('formModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+      resetForm();
+    }
+
+    function resetForm() {
+      document.getElementById('contactForm').reset();
+      document.getElementById('formMessage').classList.remove('success', 'error');
+      document.getElementById('formMessage').textContent = '';
+    }
+
+    // Close modal when clicking outside of content
+    document.getElementById('formModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeForm();
+      }
+    });
+
+    // Handle form submission
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitButton = document.querySelector('.submit-button');
+      const formMessage = document.getElementById('formMessage');
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const event = document.getElementById('event').value;
+      const date = document.getElementById('date').value;
+      const message = document.getElementById('message').value;
+
+      // Disable submit button during submission
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+
+      try {
+        // Try local server first, fallback to Formspree
+        let endpoint = '/api/contact';
+        
+        // Check if we're running on a server with backend
+        // If not, use Formspree (update with your form ID)
+        let response;
+        try {
+          response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              name: name,
+              email: email,
+              event_type: event,
+              preferred_date: date || 'Not specified',
+              message: message
+            })
+          });
+        } catch (localError) {
+          // Fallback to Formspree if local server is not available
+          console.log('Local server not available, using Formspree...');
+          response = await fetch('https://formspree.io/f/xyzqpwpk', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              name: name,
+              email: email,
+              event_type: event,
+              preferred_date: date || 'Not specified',
+              message: message
+            })
+          });
+        }
+
+        if (response.ok) {
+          formMessage.classList.add('success');
+          formMessage.classList.remove('error');
+          formMessage.textContent = 'Thank you! Your inquiry has been sent to rcolinrobins@gmail.com. We\'ll be in touch soon.';
+          resetForm();
+          setTimeout(() => {
+            closeForm();
+          }, 2000);
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        formMessage.classList.add('error');
+        formMessage.classList.remove('success');
+        formMessage.textContent = 'There was an error sending your inquiry. Please try again.';
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Send Inquiry';
+      }
+    });
+
+    // Escape key closes modal
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && document.getElementById('formModal').classList.contains('active')) {
+        closeForm();
+      }
+    });
+  </script>
+</body>
+</html>
